@@ -95,23 +95,31 @@ full_text = "\n\n".join(text_blocks)
 # Step 15: Save the extracted text as a plain text file.
 text_path = DATA_DIR / "ecb_press_conference_2026-04-30.txt"
 text_path.write_text(full_text, encoding="utf-8")
+# Step 16: Run sentiment analysis for each paragraph separately.
+paragraph_results = []
 
-# Step 16: Create the TextBlob object for sentiment analysis.
-blob = TextBlob(full_text)
+for paragraph in text_blocks:
+    blob = TextBlob(paragraph)
 
-# Step 17: Score the full press conference as one document.
-# TextBlob returns polarity and subjectivity.
-scores = {
-    "polarity": blob.sentiment.polarity,
-    "subjectivity": blob.sentiment.subjectivity,
-}
-scores["sentiment_label"] = sentiment_label(scores["polarity"])
-scores["source_url"] = URL
+    polarity = blob.sentiment.polarity
+    subjectivity = blob.sentiment.subjectivity
 
-# Step 18: Save the sentiment result as a one-row CSV summary.
-sentiment_summary = pd.DataFrame([scores])
-sentiment_path = OUTPUT_DIR / "ecb_sentiment_summary.csv"
-sentiment_summary.to_csv(sentiment_path, index=False)
+    paragraph_results.append({
+        "paragraph": paragraph,
+        "polarity": polarity,
+        "subjectivity": subjectivity,
+        "sentiment_label": sentiment_label(polarity),
+        "source_url": URL
+    })
+
+# Step 17: Save paragraph-level results to CSV.
+paragraph_sentiment = pd.DataFrame(paragraph_results)
+
+sentiment_path = OUTPUT_DIR / "ecb_paragraph_sentiment.csv"
+paragraph_sentiment.to_csv(sentiment_path, index=False)
+
+# Step 18: Print summary
+print(paragraph_sentiment.head())
 
 # Step 19: Start from the default English stopwords used by the wordcloud package.
 custom_stopwords = set(STOPWORDS)
@@ -183,8 +191,8 @@ print("Saved sentiment summary to:", sentiment_path)
 print("Saved top words table to:", top_words_path)
 print("Saved word cloud to:", wordcloud_path)
 print()
-print("Whole-document sentiment scores:")
-print(sentiment_summary[["polarity", "subjectivity", "sentiment_label"]])
+print("Paragraph sentiment sample:")
+print(paragraph_sentiment[["polarity", "subjectivity", "sentiment_label"]].head())
 print()
 print("Top 10 words after stopword removal:")
 print(top_words.head(10))

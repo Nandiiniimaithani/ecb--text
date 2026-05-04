@@ -1,6 +1,24 @@
 # ecb--text
 
-Report of Textual Analysis- ECB Press Conference 30 April 2026
+This repository contains a conda environment definition for text processing and analysis.
+
+## Setup
+
+Create the environment from `environment.yml`:
+
+```bash
+conda env create -f environment.yml
+```
+
+Activate it with:
+
+```bash
+conda activate ecb--text
+```
+
+## Analysis report
+
+Report of Textual Analysis - ECB Press Conference 30 April 2026
 
 Q1. Which ECB page did you choose?
 
@@ -13,5 +31,3 @@ I used 'TextBlob' for sentiment analysis because it is simple to use and provide
 Q3. What do your paragraph-level results suggest about the tone and topic focus of the press conference?
 
 The sentiment results show a 'slightly positive overall tone', with a polarity score of '0.14' and a subjectivity score of '0.45'. This suggests that although the ECB discusses economic risks and inflation concerns, the language used remains balanced and moderately optimistic. The press conference mainly focuses on monetary policy decisions, inflation developments, and the economic outlook, indicating that the ECB is communicating cautious confidence while addressing ongoing economic challenges.
-
-XXXXXXXX

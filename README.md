@@ -6,7 +6,7 @@ This repository contains a conda environment definition for text processing and 
 
 ### 1) ECB page chosen
 
-I used a press conference page from the official European Central Bank website (your dataset source:
+I used a press conference page from the official European Central Bank website ( dataset source:
 [https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260430~81b7179e6f.en.html](https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260430~81b7179e6f.en.html)).
 
 This page contains '11 structured paragraphs', including policy decisions, inflation outlook, and risk assessments.
